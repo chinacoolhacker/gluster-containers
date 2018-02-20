@@ -1,7 +1,5 @@
 FROM centos:7
 
-MAINTAINER Humble Chirammal hchiramm@redhat.com Mohamed Ashiq Liyazudeen mliyazud@redhat.com
-
 ENV container docker
 
 LABEL architecture="x86_64" \
@@ -33,7 +31,10 @@ mkdir -p /etc/glusterfs_bkp /var/lib/glusterd_bkp /var/log/glusterfs_bkp;\
 cp -r /etc/glusterfs/* /etc/glusterfs_bkp;\
 cp -r /var/lib/glusterd/* /var/lib/glusterd_bkp;\
 cp -r /var/log/glusterfs/* /var/log/glusterfs_bkp; \
-sed -i.save -e "s#udev_sync = 1#udev_sync = 0#" -e "s#udev_rules = 1#udev_rules = 0#" -e "s#use_lvmetad = 1#use_lvmetad = 0#" /etc/lvm/lvm.conf;
+sed -i.save -e "s#udev_sync = 1#udev_sync = 0#" -e "s#udev_rules = 1#udev_rules = 0#" -e "s#use_lvmetad = 1#use_lvmetad = 0#" /etc/lvm/lvm.conf; \
+sed 's/default=22/default=2222/g' -i /usr/libexec/glusterfs/python/syncdaemon/gsyncd.py ; \
+echo -e  "Host * \n     Port 2222" >> /etc/ssh/ssh_config
+
 
 VOLUME [ "/sys/fs/cgroup" ]
 ADD gluster-setup.service /etc/systemd/system/gluster-setup.service
@@ -50,3 +51,4 @@ systemctl enable gluster-setup.service;
 EXPOSE 2222 111 245 443 24007 2049 8080 6010 6011 6012 38465 38466 38468 38469 49152 49153 49154 49156 49157 49158 49159 49160 49161 49162
 
 CMD ["/usr/sbin/init"]
+

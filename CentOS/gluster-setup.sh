@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ###
 # Description: Script to move the glusterfs initial setup to bind mounted directories of Atomic Host.
@@ -93,4 +93,16 @@ main () {
   echo "Script Ran Successfully"
   exit 0
 }
+
+georeplication(){
+if ! test -f ~/.ssh/id-rsa ; then
+    ssh-keygen -b 2048 -t rsa -f  ~/.ssh/id-rsa -q -N ""
+fi
+if ! test -f /var/lib/glusterd/geo-replication/common_secret.pem.pub ; then
+    gluster-georep-sshkey generate
+fi
+}
+
 main
+georeplication
+
