@@ -94,11 +94,11 @@ main () {
 }
 
 georeplication(){
-if ! test -f ~/.ssh/id-rsa ; then
-    ssh-keygen -b 2048 -t rsa -f  ~/.ssh/id-rsa -q -N ""
+if ! test -f /var/lib/glusterd/geo-replication/secret.pem ; then
+    gluster-georep-sshkey generate --no-prefix
 fi
 if ! test -f /var/lib/glusterd/geo-replication/common_secret.pem.pub ; then
-    gluster-georep-sshkey generate
+    gluster-georep-sshkey generate --no-prefix
 fi
 }
 
