@@ -33,7 +33,7 @@ cp -r /var/lib/glusterd/* /var/lib/glusterd_bkp;\
 cp -r /var/log/glusterfs/* /var/log/glusterfs_bkp; \
 sed -i.save -e "s#udev_sync = 1#udev_sync = 0#" -e "s#udev_rules = 1#udev_rules = 0#" -e "s#use_lvmetad = 1#use_lvmetad = 0#" /etc/lvm/lvm.conf; \
 sed 's/default=22/default=2222/g' -i /usr/libexec/glusterfs/python/syncdaemon/gsyncd.py ; \
-echo -e  "Host * \n     Port 2222" >> /etc/ssh/ssh_config
+echo -e  "Host * \n     Port 2222 \n     IdentityFile /var/lib/glusterd/geo-replication/secret.pem" >> /etc/ssh/ssh_config
 
 
 VOLUME [ "/sys/fs/cgroup" ]
