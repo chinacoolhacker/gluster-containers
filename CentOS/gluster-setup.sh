@@ -91,7 +91,6 @@ main () {
   fi
 
   echo "Script Ran Successfully"
-  exit 0
 }
 
 georeplication(){
@@ -106,3 +105,4 @@ fi
 main
 georeplication
 
+exit 0
