@@ -1,6 +1,7 @@
 [Unit]
 Description=Configuring GlusterFS in container
 After=glusterd.service
+Requires=glusterd.service
 
 [Service]
 Type=oneshot
