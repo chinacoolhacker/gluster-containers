@@ -1,9 +1,15 @@
 #!/bin/sh
 
 geosetup(){
+  touch /var/lib/glusterd/geo-replication/authorized_keys
+  chmod 600 /var/lib/glusterd/geo-replication/authorized_keys
+
   if ! test -f /var/lib/glusterd/geo-replication/secret.pem ; then
       gluster-georep-sshkey generate --no-prefix
   fi
+
+  sleep 2
+
   if ! test -f /var/lib/glusterd/geo-replication/common_secret.pem.pub ; then
       gluster-georep-sshkey generate --no-prefix
   fi
@@ -12,6 +18,6 @@ geosetup(){
   exit 0
 }
 
-sleep 3
+sleep 2
 geosetup
 
