@@ -35,10 +35,11 @@ sed -i.save -e "s#udev_sync = 1#udev_sync = 0#" -e "s#udev_rules = 1#udev_rules 
 sed 's/default=22/default=2222/g' -i /usr/libexec/glusterfs/python/syncdaemon/gsyncd.py ; \
 echo -e  "Host * \n     Port 2222 \n     IdentityFile /var/lib/glusterd/geo-replication/secret.pem" >> /etc/ssh/ssh_config
 
-
 VOLUME [ "/sys/fs/cgroup" ]
 ADD gluster-setup.service /etc/systemd/system/gluster-setup.service
 ADD gluster-setup.sh /usr/sbin/gluster-setup.sh
+ADD gluster-geo-setup.service /etc/systemd/system/gluster-geo-setup.service
+ADD gluster-geo-setup.sh /usr/sbin/gluster-geo-setup.sh
 
 RUN chmod 644 /etc/systemd/system/gluster-setup.service; \
 chmod 500 /usr/sbin/gluster-setup.sh; \
@@ -46,7 +47,8 @@ systemctl disable nfs-server.service; \
 systemctl mask getty.target; \
 systemctl enable ntpd.service; \
 systemctl enable glusterd.service; \
-systemctl enable gluster-setup.service;
+systemctl enable gluster-setup.service; \
+systemctl enable gluster-geo-setup.service;
 
 EXPOSE 2222 111 245 443 24007 2049 8080 6010 6011 6012 38465 38466 38468 38469 49152 49153 49154 49156 49157 49158 49159 49160 49161 49162
 
