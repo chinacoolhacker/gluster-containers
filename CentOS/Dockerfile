@@ -45,6 +45,8 @@ ADD gluster-geo-setup.sh /usr/sbin/gluster-geo-setup.sh
 
 RUN chmod 644 /etc/systemd/system/gluster-setup.service; \
 chmod 500 /usr/sbin/gluster-setup.sh; \
+chmod 644 /etc/systemd/system/gluster-geo-setup.service; \
+chmod 500 /usr/sbin/gluster-geo-setup.sh; \
 systemctl disable nfs-server.service; \
 systemctl mask getty.target; \
 systemctl enable ntpd.service; \
